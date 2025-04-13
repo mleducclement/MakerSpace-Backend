@@ -1,0 +1,60 @@
+## Ignore Visual Studio / Rider temporary files, build results, etc.
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.idea/
+.vs/
+_ReSharper*/
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+**/Properties/launchSettings.json
+
+# Local development settings
+appsettings.Development.json
+appsettings.Local.json
+*.Development.json
+
+# User secrets
+**/secrets.json
+
+# Database files
+*.mdf
+*.ldf
+*.ndf
+
+# Docker
+.docker/data/
+
+# NuGet Packages
+*.nupkg
+# NuGet Symbol Packages
+*.snupkg
+# The packages folder can be ignored because of Package Restore
+**/[Pp]ackages/*
+# except build/, which is used as an MSBuild target.
+!**/[Pp]ackages/build/
+
+# Node.js (if you're using JavaScript on frontend)
+node_modules/
+npm-debug.log
