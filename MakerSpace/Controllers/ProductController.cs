@@ -37,6 +37,7 @@ public class ProductController : ControllerBase {
    [HttpPost]
    public async Task<ActionResult<ProductDto>> PostProduct(ProductMutateDto productDto) {
       var category = await _context.Categories.FirstOrDefaultAsync(p => p.Name == productDto.CategoryName);
+      
       if (category == null) {
          return NotFound($"Category not found: {productDto.CategoryName}");
       }
@@ -55,6 +56,52 @@ public class ProductController : ControllerBase {
       await _context.SaveChangesAsync();
       
       return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, ProductToDto(product));
+   }
+
+   [HttpPost("bulk")]
+   public async Task<ActionResult<IEnumerable<ProductDto>>> PostBulkProducts(List<ProductMutateDto> productDtos) {
+      if (productDtos.Count == 0) {
+         BadRequest("No product provided");
+      }
+
+      var createdProducts = new List<Product>();
+
+      foreach (var productDto in productDtos) {
+         if (!ModelState.IsValid) {
+            return BadRequest();
+         }
+         
+         var category = await _context.Categories.FirstOrDefaultAsync(p => p.Name == productDto.CategoryName);
+         if (category == null) {
+            return BadRequest($"Category not found: {productDto.CategoryName}");
+         }
+         
+         var product = new Product {
+            Id = Guid.NewGuid(),
+            Sku = productDto.Sku,
+            Name = productDto.Name,
+            Description = productDto.Description,
+            Price = productDto.Price,
+            Category = category,
+            ImageUri = productDto.ImageUri
+         };
+         
+         createdProducts.Add(product);
+      }
+
+      await using var transaction = await _context.Database.BeginTransactionAsync();
+      try {
+         await _context.Products.AddRangeAsync(createdProducts);
+         await _context.SaveChangesAsync();
+         await transaction.CommitAsync();
+      }
+      catch {
+         await transaction.RollbackAsync();
+         throw;
+      }
+      
+      return CreatedAtAction(nameof(GetProducts),
+         createdProducts.Select(ProductToDto).ToList());
    }
    
    private static ProductDto ProductToDto(Product product) => new() {

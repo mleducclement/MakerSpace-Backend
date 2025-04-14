@@ -29,6 +29,4 @@ public class Product {
    [Required]
    [StringLength(250)]
    public required string ImageUri { get; set; }
-   
-   
 }
