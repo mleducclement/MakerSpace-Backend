@@ -18,6 +18,7 @@ public class ProductController : ControllerBase {
    [HttpGet]
    public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts() {
       return await _context.Products
+         .Include(p => p.Category)
          .Select(x => ProductToDto(x))
          .ToListAsync();
    }
@@ -35,12 +36,18 @@ public class ProductController : ControllerBase {
    
    [HttpPost]
    public async Task<ActionResult<ProductDto>> PostProduct(ProductMutateDto productDto) {
+      var category = await _context.Categories.FirstOrDefaultAsync(p => p.Name == productDto.CategoryName);
+      if (category == null) {
+         return NotFound($"Category not found: {productDto.CategoryName}");
+      }
+      
       var product = new Product {
          Id = Guid.NewGuid(),
+         Sku = productDto.Sku,
          Name = productDto.Name,
          Description = productDto.Description,
          Price = productDto.Price,
-         Category = productDto.Category,
+         Category = category,
          ImageUri = productDto.ImageUri
       };
       
@@ -52,6 +59,7 @@ public class ProductController : ControllerBase {
    
    private static ProductDto ProductToDto(Product product) => new() {
       Id = product.Id,
+      Sku = product.Sku,
       Name = product.Name,
       Description = product.Description,
       Price = product.Price,
