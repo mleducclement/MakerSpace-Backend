@@ -29,4 +29,13 @@ public class Product {
    [Required]
    [StringLength(250)]
    public required string ImageUri { get; set; }
+   
+   [Range(1, 100)]
+   public int Rating { get; set; }
+   
+   [Range(1, 100)]
+   public int PromoRate { get; set; }
+   
+   [Required]
+   public int Stock { get; set; }
 }

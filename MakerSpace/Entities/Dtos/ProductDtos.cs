@@ -10,6 +10,9 @@ public record ProductDto {
    public required Category Category { get; init; }
    public decimal Price { get; init; } 
    public required string ImageUri { get; init; }
+   public int Rating { get; init; }
+   public int PromoRate { get; init; }
+   public int Stock { get; init; }
 }
 
 public record ProductMutateDto(
@@ -18,5 +21,8 @@ public record ProductMutateDto(
    [Required][StringLength(250)] string Description,
    [Required][Range(1, 1000)] decimal Price,
    [Required] string CategoryName,
-   [Url][Required] string ImageUri
+   [Url][Required] string ImageUri,
+   int Rating,
+   int PromoRate,
+   [Required] int Stock
 );
