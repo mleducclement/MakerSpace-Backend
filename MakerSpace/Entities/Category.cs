@@ -8,5 +8,13 @@ public class Category {
    
    [Required]
    [StringLength(30)]
+   public required string Slug { get; set; }
+   
+   [Required]
+   [StringLength(30)]
    public required string Name { get; set; }
+   
+   [Required]
+   [Range(1, 100)]
+   public int Heat { get; set; }
 }

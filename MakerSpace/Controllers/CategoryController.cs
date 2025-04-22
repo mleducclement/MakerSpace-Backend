@@ -37,7 +37,9 @@ public class CategoryController : ControllerBase {
    public async Task<ActionResult<CategoryDto>> PostCategory(CategoryMutateDto categoryDto) {
       var category = new Category {
          Id = Guid.NewGuid(),
-         Name = categoryDto.Name
+         Name = categoryDto.Name,
+         Slug = categoryDto.Slug,
+         Heat = categoryDto.Heat,
       };
       
       _context.Categories.Add(category);
@@ -48,6 +50,8 @@ public class CategoryController : ControllerBase {
 
    private static CategoryDto CategoryToDto(Category category) => new() {
       Id = category.Id,
-      Name = category.Name
+      Slug = category.Slug,
+      Name = category.Name,
+      Heat = category.Heat,
    };
 }
