@@ -1,0 +1,5 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+git ls-files --others --exclude-standard MakerSpace/Data/Migrations | grep '\.cs$' | xargs git add
+
