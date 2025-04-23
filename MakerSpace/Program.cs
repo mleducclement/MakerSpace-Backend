@@ -12,6 +12,9 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        builder.Configuration
+            .AddEnvironmentVariables();
+        
         builder.Services.AddControllers();
         
         builder.Services.AddScoped<IValidator<ProductMutateDto>, ProductMutateDtoValidator>();

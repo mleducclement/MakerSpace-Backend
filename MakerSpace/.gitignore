@@ -28,12 +28,9 @@ bld/
 project.lock.json
 project.fragment.lock.json
 artifacts/
-**/Properties/launchSettings.json
 
 # Local development settings
-appsettings.Development.json
 appsettings.Local.json
-*.Development.json
 
 # User secrets
 **/secrets.json
