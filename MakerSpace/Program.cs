@@ -1,4 +1,7 @@
+using FluentValidation;
 using MakerSpace.Data;
+using MakerSpace.Entities.Dtos;
+using MakerSpace.Validators;
 using Microsoft.EntityFrameworkCore;
 
 namespace MakerSpace;
@@ -10,6 +13,8 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddControllers();
+        
+        builder.Services.AddScoped<IValidator<ProductMutateDto>, ProductMutateDtoValidator>();
 
         builder.Services.AddDbContext<AppDbContext>(opt => {
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");

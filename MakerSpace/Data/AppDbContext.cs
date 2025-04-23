@@ -1,4 +1,5 @@
 ﻿using MakerSpace.Entities;
+using MakerSpace.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace MakerSpace.Data;

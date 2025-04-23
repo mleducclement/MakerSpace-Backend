@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MakerSpace.Entities;
+namespace MakerSpace.Models;
 
 public class Product {
    
@@ -22,20 +22,22 @@ public class Product {
    public required Category Category { get; set; }
    
    [Required]
-   [Range(1, 1000)]
+   [Range(1, 1000, MaximumIsExclusive = true)]
    public decimal Price { get; set; }
    
    [Url]
    [Required]
-   [StringLength(250)]
+   [StringLength(500)]
    public required string ImageUri { get; set; }
    
-   [Range(1, 100)]
-   public int Rating { get; set; }
-   
-   [Range(1, 100)]
-   public int PromoRate { get; set; }
+   [Required]
+   [Range(0, 5)]
+   public required double Rating { get; set; }
    
    [Required]
-   public int Stock { get; set; }
+   [Range(0, 100)]
+   public required int PromoRate { get; set; }
+   
+   [Required]
+   public required int Stock { get; set; }
 }

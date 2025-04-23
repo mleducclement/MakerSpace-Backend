@@ -1,6 +1,7 @@
 ﻿using MakerSpace.Data;
 using MakerSpace.Entities;
 using MakerSpace.Entities.Dtos;
+using MakerSpace.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,10 +37,10 @@ public class ProductController : ControllerBase {
    
    [HttpPost]
    public async Task<ActionResult<ProductDto>> PostProduct(ProductMutateDto productDto) {
-      var category = await _context.Categories.FirstOrDefaultAsync(p => p.Name == productDto.CategoryName);
+      var category = await _context.Categories.FirstOrDefaultAsync(p => p.Name == productDto.CategorySlug);
       
       if (category == null) {
-         return NotFound($"Category not found: {productDto.CategoryName}");
+         return NotFound($"Category not found: {productDto.CategorySlug}");
       }
       
       var product = new Product {
@@ -49,7 +50,10 @@ public class ProductController : ControllerBase {
          Description = productDto.Description,
          Price = productDto.Price,
          Category = category,
-         ImageUri = productDto.ImageUri
+         ImageUri = productDto.ImageUri,
+         Rating = productDto.Rating,
+         PromoRate = productDto.PromoRate,
+         Stock = productDto.Stock
       };
       
       _context.Products.Add(product);
@@ -71,9 +75,9 @@ public class ProductController : ControllerBase {
             return BadRequest();
          }
          
-         var category = await _context.Categories.FirstOrDefaultAsync(p => p.Name == productDto.CategoryName);
+         var category = await _context.Categories.FirstOrDefaultAsync(p => p.Name == productDto.CategorySlug);
          if (category == null) {
-            return BadRequest($"Category not found: {productDto.CategoryName}");
+            return BadRequest($"Category not found: {productDto.CategorySlug}");
          }
          
          var product = new Product {
@@ -83,7 +87,10 @@ public class ProductController : ControllerBase {
             Description = productDto.Description,
             Price = productDto.Price,
             Category = category,
-            ImageUri = productDto.ImageUri
+            ImageUri = productDto.ImageUri,
+            Rating = productDto.Rating,
+            PromoRate = productDto.PromoRate,
+            Stock = productDto.Stock
          };
          
          createdProducts.Add(product);
@@ -111,7 +118,10 @@ public class ProductController : ControllerBase {
       Description = product.Description,
       Price = product.Price,
       Category = product.Category,
-      ImageUri = product.ImageUri
+      ImageUri = product.ImageUri,
+      Rating = product.Rating,
+      PromoRate = product.PromoRate,
+      Stock = product.Stock
    };
 }
    

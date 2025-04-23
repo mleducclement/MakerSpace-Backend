@@ -1,6 +1,7 @@
 using MakerSpace.Data;
 using MakerSpace.Entities;
 using MakerSpace.Entities.Dtos;
+using MakerSpace.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

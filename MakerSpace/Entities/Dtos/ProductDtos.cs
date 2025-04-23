@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using MakerSpace.Models;
 
 namespace MakerSpace.Entities.Dtos;
 
@@ -8,21 +9,21 @@ public record ProductDto {
    public required string Name { get; init; }
    public required string Description { get; init; }
    public required Category Category { get; init; }
-   public decimal Price { get; init; } 
+   public required decimal Price { get; init; } 
    public required string ImageUri { get; init; }
-   public int Rating { get; init; }
-   public int PromoRate { get; init; }
-   public int Stock { get; init; }
+   public required double Rating { get; init; }
+   public required int PromoRate { get; init; }
+   public required int Stock { get; init; }
 }
 
 public record ProductMutateDto(
-   [Required][StringLength(30)] string Sku,
-   [Required][StringLength(50)] string Name,
-   [Required][StringLength(250)] string Description,
-   [Required][Range(1, 1000)] decimal Price,
-   [Required] string CategoryName,
-   [Url][Required] string ImageUri,
-   int Rating,
+   string Sku,
+   string Name,
+   string Description,
+   string CategorySlug,
+   decimal Price,
+   string ImageUri,
+   double Rating,
    int PromoRate,
-   [Required] int Stock
+   int Stock
 );
