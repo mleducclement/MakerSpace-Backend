@@ -20,6 +20,9 @@ public class Product {
    public required string Description { get; set; }
    
    [Required]
+   public Guid CategoryId { get; set; }
+   
+   [Required]
    public required Category Category { get; set; }
    
    [Required]
@@ -33,12 +36,12 @@ public class Product {
    
    [Required]
    [Range(0, 5)]
-   public required double Rating { get; set; }
+   public double Rating { get; set; }
    
    [Required]
    [Range(0, 100)]
-   public required int PromoRate { get; set; }
+   public int PromoRate { get; set; }
    
    [Required]
-   public required int Stock { get; set; }
+   public int Stock { get; set; }
 }

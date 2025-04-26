@@ -15,11 +15,11 @@ public record ProductDto {
    public required int Stock { get; init; }
 }
 
-public record ProductMutateDto(
+public record ProductMutateDto (
    string Sku,
    string Name,
    string Description,
-   string CategorySlug,
+   Guid CategoryId,
    decimal Price,
    string ImageUri,
    double Rating,

@@ -19,10 +19,10 @@ public class ProductMutateDtoValidator : AbstractValidator<ProductMutateDto> {
          .NotEmpty().WithMessage("Description is required")
          .Length(1, 250).WithMessage("Description must be between 1 and 250 characters");
 
-      RuleFor(x => x.CategorySlug)
-         .MustAsync(async (slug, cancellation) => {
+      RuleFor(x => x.CategoryId)
+         .MustAsync(async (id, cancellation) => {
             return await db.Categories
-               .AnyAsync(c => c.Slug == slug, cancellation);
+               .AnyAsync(c => c.Id == id, cancellation);
          }).WithMessage($"Category doesn't exist");
       
       RuleFor(x => x.Price)
