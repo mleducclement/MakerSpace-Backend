@@ -1,11 +1,10 @@
-using MakerSpace.Data;
-using MakerSpace.Entities;
-using MakerSpace.Entities.Dtos;
-using MakerSpace.Models;
+using MakerSpace.Application.Categories.Dtos;
+using MakerSpace.Domain.Models;
+using MakerSpace.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace MakerSpace.Controllers;
+namespace MakerSpace.Presentation.Controllers;
 
 [Route("/categories")]
 [ApiController]
