@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using MakerSpace.Application.Products.Dtos;
 using MakerSpace.Data;
+using MakerSpace.Entities.Dtos;
 using Microsoft.EntityFrameworkCore;
 
-namespace MakerSpace.Application.Products.Validators;
+namespace MakerSpace.Validators;
 
 public class ProductMutateDtoValidator : AbstractValidator<ProductMutateDto> {
    public ProductMutateDtoValidator(AppDbContext db) {
@@ -19,10 +19,10 @@ public class ProductMutateDtoValidator : AbstractValidator<ProductMutateDto> {
          .NotEmpty().WithMessage("Description is required")
          .Length(1, 250).WithMessage("Description must be between 1 and 250 characters");
 
-      RuleFor(x => x.CategoryId)
-         .MustAsync(async (id, cancellation) => {
+      RuleFor(x => x.CategorySlug)
+         .MustAsync(async (slug, cancellation) => {
             return await db.Categories
-               .AnyAsync(c => c.Id == id, cancellation);
+               .AnyAsync(c => c.Slug == slug, cancellation);
          }).WithMessage($"Category doesn't exist");
       
       RuleFor(x => x.Price)

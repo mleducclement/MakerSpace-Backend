@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using MakerSpace.Domain.Common;
 
-namespace MakerSpace.Domain.Models;
+namespace MakerSpace.Models;
 
-public class Category : IEntity {
+public class Category {
+   
    public Guid Id { get; set; }
-
+   
    [Required]
    [StringLength(30)]
    public required string Slug { get; set; }
