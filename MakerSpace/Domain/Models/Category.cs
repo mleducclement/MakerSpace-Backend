@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using MakerSpace.Domain.Common;
 
 namespace MakerSpace.Domain.Models;
 
-public class Category {
+public class Category : IEntity {
    
    public Guid Id { get; set; }
    

@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using MakerSpace.Domain.Models;
+using MakerSpace.Domain.Common;
 
-namespace MakerSpace.Models;
+namespace MakerSpace.Domain.Models;
 
-public class Product {
+public class Product : IEntity {
    
    public Guid Id { get; set; }
    
