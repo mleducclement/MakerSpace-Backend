@@ -55,3 +55,5 @@ appsettings.Local.json
 # Node.js (if you're using JavaScript on frontend)
 node_modules/
 npm-debug.log
+
+/Properties/launchSettings.json

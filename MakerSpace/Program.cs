@@ -1,60 +1,33 @@
-using FluentValidation;
-using MakerSpace.Data;
-using MakerSpace.Entities.Dtos;
-using MakerSpace.Validators;
-using Microsoft.EntityFrameworkCore;
+using MakerSpace.Application.Extensions;
+using MakerSpace.Infrastructure.Data.Extensions;
 
 namespace MakerSpace;
 
-public class Program
-{
-    public static void Main(string[] args)
-    {
-        var builder = WebApplication.CreateBuilder(args);
+public class Program {
+   public static async Task Main(string[] args) {
+      var builder = WebApplication.CreateBuilder(args);
 
-        builder.Configuration
-            .AddEnvironmentVariables();
-        
-        builder.Services.AddControllers();
-        
-        builder.Services.AddScoped<IValidator<ProductMutateDto>, ProductMutateDtoValidator>();
+      builder.Configuration
+         .AddEnvironmentVariables();
 
-        builder.Services.AddDbContext<AppDbContext>(opt => {
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-            opt.UseSqlServer(connectionString);
-        });
-        
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen(c =>
-        {
-            c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
-            {
-                Title = "MakerSpace API",
-                Version = "v1",
-                Description = "API for MakerSpace application"
-            });
-        });
-        
-        var app = builder.Build();
+      builder.Services.AddControllers();
 
-        using (var scope = app.Services.CreateScope()) {
-            var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-            db.Database.Migrate();
-        }
-        
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseSwagger();
-            app.UseSwaggerUI(c => 
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MakerSpace API V1");
-                c.RoutePrefix = string.Empty; // To serve the Swagger UI at the app's root
-            });
-        }
-        
-        app.UseRouting();
-        app.MapControllers();
+      builder.Services
+         .AddEndpointsApiExplorer()
+         .AddRepositories(builder.Configuration)
+         .AddApplicationServices()
+         .AddMakerSpaceSwagger();
 
-        app.Run();
-    }
+      var app = builder.Build();
+
+      await app.Services.InitializeDbAsync();
+
+      if (app.Environment.IsDevelopment()) {
+         app.UseMakerSpaceSwagger();
+      }
+
+      app.UseRouting();
+      app.MapControllers();
+      await app.RunAsync();
+   }
 }
