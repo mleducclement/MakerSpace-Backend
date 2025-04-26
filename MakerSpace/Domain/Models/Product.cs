@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using MakerSpace.Domain.Common;
 
-namespace MakerSpace.Models;
+namespace MakerSpace.Domain.Models;
 
-public class Product {
+public class Product : IEntity {
    
    public Guid Id { get; set; }
-   
+
    [Required]
    [StringLength(30)]
    public required string Sku { get; set; }
@@ -17,6 +18,9 @@ public class Product {
    [Required]
    [StringLength(250)]
    public required string Description { get; set; }
+   
+   [Required]
+   public Guid CategoryId { get; set; }
    
    [Required]
    public required Category Category { get; set; }
@@ -32,12 +36,12 @@ public class Product {
    
    [Required]
    [Range(0, 5)]
-   public required double Rating { get; set; }
+   public double Rating { get; set; }
    
    [Required]
    [Range(0, 100)]
-   public required int PromoRate { get; set; }
+   public int PromoRate { get; set; }
    
    [Required]
-   public required int Stock { get; set; }
+   public int Stock { get; set; } // TODO: Move this to InventoryItem when stock logic is added
 }

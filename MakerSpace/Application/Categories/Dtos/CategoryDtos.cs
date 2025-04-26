@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MakerSpace.Entities.Dtos;
+namespace MakerSpace.Application.Categories.Dtos;
 
 public class CategoryDto {
    public Guid Id { get; set; }

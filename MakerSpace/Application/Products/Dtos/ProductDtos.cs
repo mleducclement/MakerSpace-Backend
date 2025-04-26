@@ -1,7 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using MakerSpace.Models;
+﻿using MakerSpace.Domain.Models;
 
-namespace MakerSpace.Entities.Dtos;
+namespace MakerSpace.Application.Products.Dtos;
 
 public record ProductDto {
    public required Guid Id { get; init; }
@@ -16,11 +15,11 @@ public record ProductDto {
    public required int Stock { get; init; }
 }
 
-public record ProductMutateDto(
+public record ProductMutateDto (
    string Sku,
    string Name,
    string Description,
-   string CategorySlug,
+   Guid CategoryId,
    decimal Price,
    string ImageUri,
    double Rating,
