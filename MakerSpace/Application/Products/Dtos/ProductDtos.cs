@@ -1,7 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using MakerSpace.Models;
+﻿using MakerSpace.Domain.Models;
 
-namespace MakerSpace.Entities.Dtos;
+namespace MakerSpace.Application.Products.Dtos;
 
 public record ProductDto {
    public required Guid Id { get; init; }

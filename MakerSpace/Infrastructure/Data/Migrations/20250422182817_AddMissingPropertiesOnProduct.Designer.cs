@@ -4,13 +4,16 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MakerSpace.Data.Migrations
+namespace MakerSpace.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250422182817_AddMissingPropertiesOnProduct")]
+    partial class AddMissingPropertiesOnProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,21 +22,13 @@ namespace MakerSpace.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MakerSpace.Models.Category", b =>
+            modelBuilder.Entity("MakerSpace.Entities.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Heat")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("Slug")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
@@ -46,7 +41,7 @@ namespace MakerSpace.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("MakerSpace.Models.Product", b =>
+            modelBuilder.Entity("MakerSpace.Entities.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -62,8 +57,8 @@ namespace MakerSpace.Data.Migrations
 
                     b.Property<string>("ImageUri")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -77,8 +72,8 @@ namespace MakerSpace.Data.Migrations
                     b.Property<int>("PromoRate")
                         .HasColumnType("int");
 
-                    b.Property<double>("Rating")
-                        .HasColumnType("float");
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
 
                     b.Property<string>("Sku")
                         .IsRequired()
@@ -95,9 +90,9 @@ namespace MakerSpace.Data.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("MakerSpace.Models.Product", b =>
+            modelBuilder.Entity("MakerSpace.Entities.Product", b =>
                 {
-                    b.HasOne("MakerSpace.Models.Category", "Category")
+                    b.HasOne("MakerSpace.Entities.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)

@@ -4,16 +4,13 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MakerSpace.Data.Migrations
+namespace MakerSpace.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250422184123_Add Heat and Slug to Category")]
-    partial class AddHeatandSlugtoCategory
+    partial class AppDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +19,7 @@ namespace MakerSpace.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MakerSpace.Entities.Category", b =>
+            modelBuilder.Entity("MakerSpace.Models.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -49,7 +46,7 @@ namespace MakerSpace.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("MakerSpace.Entities.Product", b =>
+            modelBuilder.Entity("MakerSpace.Models.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -65,8 +62,8 @@ namespace MakerSpace.Data.Migrations
 
                     b.Property<string>("ImageUri")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -80,8 +77,8 @@ namespace MakerSpace.Data.Migrations
                     b.Property<int>("PromoRate")
                         .HasColumnType("int");
 
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
+                    b.Property<double>("Rating")
+                        .HasColumnType("float");
 
                     b.Property<string>("Sku")
                         .IsRequired()
@@ -98,9 +95,9 @@ namespace MakerSpace.Data.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("MakerSpace.Entities.Product", b =>
+            modelBuilder.Entity("MakerSpace.Models.Product", b =>
                 {
-                    b.HasOne("MakerSpace.Entities.Category", "Category")
+                    b.HasOne("MakerSpace.Models.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)

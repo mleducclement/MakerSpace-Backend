@@ -1,8 +1,7 @@
-﻿using MakerSpace.Entities;
-using MakerSpace.Models;
+﻿using MakerSpace.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace MakerSpace.Data;
+namespace MakerSpace.Infrastructure.Data;
 
 public class AppDbContext : DbContext {
    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) {}

@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using MakerSpace.Data;
-using MakerSpace.Entities.Dtos;
+using MakerSpace.Application.Products.Dtos;
+using MakerSpace.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace MakerSpace.Validators;
+namespace MakerSpace.Application.Products.Validators;
 
 public class ProductMutateDtoValidator : AbstractValidator<ProductMutateDto> {
    public ProductMutateDtoValidator(AppDbContext db) {

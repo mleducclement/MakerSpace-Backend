@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using MakerSpace.Domain.Models;
 
 namespace MakerSpace.Models;
 

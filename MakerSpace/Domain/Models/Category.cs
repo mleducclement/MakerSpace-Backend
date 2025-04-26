@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MakerSpace.Models;
+namespace MakerSpace.Domain.Models;
 
 public class Category {
    
